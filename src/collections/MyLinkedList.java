@@ -3,50 +3,44 @@
 
 package collections;
 
-public class MyLinkedList {
+public class MyLinkedList { // simple linked list with two nodes: head and tail, it thus has a first and a last element, and a size. i.e. it is a list, not a stack or a queue, but it is linked and not array based
     Node head=null;
     Node tail=null;
-
-    public static void main(String[] args) throws MyLinkedListException {
-        System.out.println(new MyLinkedList());
-        MyLinkedList list=new MyLinkedList();
-        list.addFirst(1);
-        list.addFirst(2);
-        list.addFirst(3);
-        list.addLast(4);
-        list.addLast(5);
-        list.addLast(6);
-        System.out.println(list);
-//        list.addAtIndex(-1, 0);  // errer
-        list.addAtIndex(0, 0);        System.out.println(list);
-        list.addAtIndex(3, 0);        System.out.println(list);
-        list.addAtIndex(8, 0);        System.out.println(list);
-        list.removeFirst();           System.out.println(list);
-        list.removeFirst();           System.out.println(list);
-        list.removeLast();            System.out.println(list);
-        list.removeLast();            System.out.println(list);
-        list.removeAtIndex(0);        System.out.println(list);
-        list.removeAtIndex(3);        System.out.println(list);
-        list.removeAtIndex(1);        System.out.println(list);
-//        list.removeAtIndex(2);        System.out.println(list);   // error
-        System.out.println(list+" "+list.get(0));
-        System.out.println(list+" "+list.get(1));
-//        System.out.println(list+" "+list.get(2));   // error
-
-//       new LinkedIntlist().removeFirst();    // error
-//       new LinkedIntlist().removeLast();     // error
+    class Node { // node in the linked list
+        Node next=null; // next node in the sequence of nodes of the LinkedList
+        Node prev=null; // previous node
+        int elm;       // the element, i.e. this node's value
+        Node(int value){ elm=value; }
     }
 
-    void addFirst(int value){
+    // ----------------- operations -----------------
+    /*
+        - addFirst
+        - addLast
+        - addAtIndex
+        - removeFirst
+        - removeLast
+        - removeAtIndex
+        - get
+        - isEmpty
+        - size
+        - toString
+     */
+
+    void addFirst(int value){ // add value as first element in the list i.e.
         Node n=new Node(value);
-        if (head==null) {
+        if (head==null) { // -> list is empty
             head=n;
             tail=n;
-        }
-        else {
-            head.prev=n;
+        } else {      // -> list is not empty
+            head.prev=n; // first of list = head, so we must update head.prev
             n.next=head;
             head=n;
+            // head = n, n.next = old head, old head.prev = n
+            // head.prev = null, tail.next = null
+            // order: n, head, old head, tail
+            // if addFirst(1) -> 1, 2, 3, 4, 5, 6
+            // if addFirst(0) -> 0, 1, 2, 3, 4, 5, 6
         }
     }
 
@@ -164,12 +158,7 @@ public class MyLinkedList {
         return result;
     }
 
-    class Node {
-        Node next=null;
-        Node prev=null;
-        int elm;
-        Node(int value){ elm=value; }
-    }
+
 
 }
 
@@ -180,5 +169,47 @@ class MyLinkedListException extends Exception {
     }
     public String toString(){
         return "MyLinkedListException: "+errortext;
+    }
+}
+
+class test {
+    public static void main(String[] args) throws MyLinkedListException {
+        System.out.println(new MyLinkedList());
+        MyLinkedList list = new MyLinkedList();
+        list.addFirst(1);
+        list.addFirst(2);
+        list.addFirst(3);
+        list.addLast(4);
+        list.addLast(5);
+        list.addLast(6);
+        System.out.println(list);
+//        list.addAtIndex(-1, 0);  // errer
+        list.addAtIndex(0, 0);
+        System.out.println(list);
+        list.addAtIndex(3, 0);
+        System.out.println(list);
+        list.addAtIndex(8, 0);
+        System.out.println(list);
+        list.removeFirst();
+        System.out.println(list);
+        list.removeFirst();
+        System.out.println(list);
+        list.removeLast();
+        System.out.println(list);
+        list.removeLast();
+        System.out.println(list);
+        list.removeAtIndex(0);
+        System.out.println(list);
+        list.removeAtIndex(3);
+        System.out.println(list);
+        list.removeAtIndex(1);
+        System.out.println(list);
+//        list.removeAtIndex(2);        System.out.println(list);   // error
+        System.out.println(list + " " + list.get(0));
+        System.out.println(list + " " + list.get(1));
+//        System.out.println(list+" "+list.get(2));   // error
+
+//       new LinkedIntlist().removeFirst();    // error
+//       new LinkedIntlist().removeLast();     // error
     }
 }
